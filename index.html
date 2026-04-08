@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/user/Downloads/portfolio%20(2).html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ксения Лисицкая — AI-контент и промпт-инжиниринг</title>
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --kraft: #c4a882;
+    --kraft-dark: #8b6f47;
+    --kraft-light: #e8d5b7;
+    --paper: #f5ead6;
+    --ink: #2d1f0e;
+    --ink-soft: #5c3d1e;
+    --accent: #b85c2a;
+    --accent-light: #e8936a;
+    --cream: #faf3e8;
+    --shadow: rgba(45, 31, 14, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245, 234, 214, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(196, 168, 130, 0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 16px 36px;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,92,42,0.3); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink-soft);
+    padding: 16px 36px;
+    border: 1px solid var(--kraft);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--kraft-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 70%, rgba(184,92,42,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(139,111,71,0.15) 0%, transparent 50%);
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px;
+  }
+
+  .big-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(6rem, 12vw, 10rem);
+    color: var(--kraft-dark);
+    opacity: 0.15;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(196,168,130,0.4);
+    padding: 28px 36px;
+    backdrop-filter: blur(4px);
+    text-align: left;
+    position: relative;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* ABOUT */
+  .section {
+    padding: 100px 60px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--kraft);
+    opacity: 0.5;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  .about-text p {
+    color: var(--ink-soft);
+    line-height: 1.9;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  .about-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .badge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    border: 1px solid rgba(196,168,130,0.3);
+    background: rgba(255,255,255,0.4);
+    transition: all 0.3s;
+  }
+
+  .badge-item:hover {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.7);
+    transform: translateX(4px);
+  }
+
+  .badge-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+  }
+
+  .badge-content strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .badge-content span {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* SERVICES */
+  .services-section {
+    background: var(--ink);
+    padding: 100px 60px;
+  }
+
+  .services-section .section-label {
+    color: var(--kraft-light);
+  }
+
+  .services-section .section-label::after {
+    background: var(--kraft-dark);
+  }
+
+  .services-section h2 { color: var(--cream); }
+  .services-section h2 em { color: var(--accent-light); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(196,168,130,0.1);
+    padding: 48px 36px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover {
+    background: rgba(255,255,255,0.07);
+  }
+
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: rgba(196,168,130,0.15);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: rgba(232,213,183,0.6);
+    line-height: 1.8;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    border: 1px solid rgba(232,147,106,0.3);
+    padding: 4px 12px;
+  }
+
+  /* WORKS */
+  .works-section {
+    padding: 100px 60px;
+    background: var(--cream);
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+  }
+
+  .work-card {
+    border: 1px solid rgba(196,168,130,0.4);
+    overflow: hidden;
+    background: white;
+    transition: all 0.4s;
+    position: relative;
+  }
+
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px var(--shadow);
+  }
+
+  .work-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .work-visual {
+    height: 200px;
+    background: var(--kraft-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .work-card:first-child .work-visual {
+    height: 280px;
+  }
+
+  .work-emoji {
+    font-size: 4rem;
+    opacity: 0.5;
+  }
+
+  .work-visual-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-body {
+    padding: 32px;
+  }
+
+  .work-type {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .work-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .work-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* TOOLS */
+  .tools-section {
+    padding: 80px 60px;
+    border-top: 1px solid rgba(196,168,130,0.3);
+  }
+
+  .tools-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .tool-pill {
+    padding: 12px 24px;
+    border: 1px solid var(--kraft);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.5);
+  }
+
+  .tool-pill:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--kraft-dark);
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: 'HIRE ME';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 20vw;
+    color: rgba(255,255,255,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    color: var(--cream);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 20px;
+  }
+
+  .cta-section h2 em { color: var(--accent-light); }
+
+  .cta-section p {
+    color: rgba(232,213,183,0.7);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  .cta-contacts {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+
+  .contact-link {
+    color: var(--kraft-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(196,168,130,0.4);
+    padding-bottom: 4px;
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    color: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: rgba(196,168,130,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 100px 24px 60px; }
+    .section { padding: 60px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-section { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; gap: 1px; }
+    .works-section { padding: 60px 24px; }
+    .works-grid { grid-template-columns: 1fr; }
+    .work-card:first-child { grid-column: 1; }
+    .tools-section { padding: 60px 24px; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  /* DECORATIVE LINE */
+  .deco-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 32px 0;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Ксения Лисицкая</div>
+  <ul class="nav-links">
+    <li><a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#about">Обо мне</a></li>
+    <li><a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#services">Услуги</a></li>
+    <li><a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#works">Работы</a></li>
+    <li><a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#contact">Контакт</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Промпт-инжиниринг · AI-контент · SMM</div>
+    <h1>Из банка —<br>в <em>нейросети</em></h1>
+    <p class="hero-subtitle">
+      18 лет в банкинге научили системно мыслить. Теперь я применяю это в работе с AI — создаю контент, GPT-агентов и стратегии, которые реально работают.
+    </p>
+    <div class="hero-cta">
+      <a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#works" class="btn-primary">Смотреть работы</a>
+      <a href="file:///C:/Users/user/Downloads/portfolio%20(2).html#contact" class="btn-outline">Написать мне</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="big-number">AI</div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-number">18</span>
+        <span class="stat-label">лет системного мышления из банкинга</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">3</span>
+        <span class="stat-label">AI-инструмента в ежедневной работе</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2</span>
+        <span class="stat-label">запущенных GPT-агента</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-label">Обо мне</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Аналитик, который<br>научился говорить<br>с <em>нейросетями</em></h2>
+      <div class="deco-line"></div>
+      <p>Я провела 18 лет в банке на позиции старшего менеджера по ипотечному кредитованию. Это дало мне суперсилу — видеть систему там, где другие видят хаос.</p>
+      <p>Сейчас я строю личный бренд «Из банка в нейросети» и помогаю бизнесам говорить с аудиторией на языке, который конвертирует — с помощью AI-инструментов и проверенных копирайтинг-формул.</p>
+      <p>Работаю с Claude, ChatGPT и Grok каждый день. Не как с игрушкой — как с командой.</p>
+    </div>
+    <div class="about-badges">
+      <div class="badge-item">
+        <div class="badge-icon">🧠</div>
+        <div class="badge-content">
+          <strong>Промпт-инжиниринг</strong>
+          <span>Золотая формула из 15 элементов — пишу промпты, которые дают результат с первого раза</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">✍️</div>
+        <div class="badge-content">
+          <strong>Копирайтинг по формулам</strong>
+          <span>AIDA, PAS, FAB, 4U, PMPHS — применяю системно, не интуитивно</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">🤖</div>
+        <div class="badge-content">
+          <strong>GPT-агенты под ключ</strong>
+          <span>Разработка, настройка и запуск кастомных AI-ботов для бизнеса</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">📊</div>
+        <div class="badge-content">
+          <strong>Кастдев и аналитика</strong>
+          <span>Провела 10+ глубинных интервью, знаю как болят клиенты</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-label">Услуги</div>
+  <h2>Что я делаю<br>для вашего <em>бизнеса</em></h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">AI-контент для соцсетей</div>
+      <p class="service-desc">Карусели, посты, Stories для ВКонтакте, Telegram, Instagram. Фирменная визуальная концепция + тексты, которые читают до конца.</p>
+      <div class="service-tags">
+        <span class="tag">ВКонтакте</span>
+        <span class="tag">Telegram</span>
+        <span class="tag">Reels</span>
+        <span class="tag">Карусели</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Промпты и GPT-агенты</div>
+      <p class="service-desc">Разрабатываю промпты под конкретные задачи и собираю GPT-агентов — ботов-помощников для бизнеса, которые работают без вас.</p>
+      <div class="service-tags">
+        <span class="tag">ChatGPT</span>
+        <span class="tag">Claude</span>
+        <span class="tag">Автоматизация</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Копирайтинг с формулами</div>
+      <p class="service-desc">Продающие тексты по проверенным формулам: лендинги, прогревы, email-цепочки, офферы. Без воды — только то, что продаёт.</p>
+      <div class="service-tags">
+        <span class="tag">Лендинги</span>
+        <span class="tag">Email</span>
+        <span class="tag">Офферы</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="works-section" id="works">
+  <div class="section-label">Портфолио</div>
+  <h2>Избранные <em>работы</em></h2>
+  <div class="works-grid">
+
+    <div class="work-card">
+      <div class="work-visual" style="background: linear-gradient(135deg, #c4a882 0%, #8b6f47 100%);">
+        <div class="work-visual-bg">
+          <span style="font-family:&#39;Playfair Display&#39;,serif; font-size:5rem; color:rgba(255,255,255,0.15); letter-spacing:-0.02em;">КопиРакета</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-type">GPT-агент · Копирайтинг</div>
+        <div class="work-title">КопиРакета — AI-помощник копирайтера</div>
+        <p class="work-desc">Кастомный GPT-агент для создания продающих текстов по формулам AIDA, PAS, FAB. Знает 15-элементный промпт-фреймворк, умеет под любую нишу. Прошёл тест на реальных пользователях.</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-visual" style="background: linear-gradient(135deg, #e8d5b7 0%, #c4a882 100%);">
+        <div class="work-visual-bg" style="font-size:5rem; opacity:0.3;">🧮</div>
+      </div>
+      <div class="work-body">
+        <div class="work-type">GPT-агент · Образование</div>
+        <div class="work-title">МатГений — репетитор по математике</div>
+        <p class="work-desc">AI-репетитор для школьников с мягкой подачей и геймификацией. Прошёл модерацию, готов к запуску на Kwork и других платформах.</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-visual" style="background: linear-gradient(135deg, #2d1f0e 0%, #5c3d1e 100%);">
+        <div class="work-visual-bg" style="font-size:5rem; opacity:0.2;">❓</div>
+      </div>
+      <div class="work-body">
+        <div class="work-type">HTML-интерактив · Личный бренд</div>
+        <div class="work-title">Квиз «ИИ или Человек?»</div>
+        <p class="work-desc">Интерактивный квиз для прогрева аудитории. Разработан на HTML/JS, задеплоен на GitHub Pages. Вирусная механика для соцсетей.</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-visual" style="background: linear-gradient(135deg, #b85c2a 0%, #e8936a 100%);">
+        <div class="work-visual-bg" style="font-family:&#39;Playfair Display&#39;,serif; font-size:3rem; color:rgba(255,255,255,0.15); text-align:center; padding:20px;">AIDA · PAS · FAB · 4U</div>
+      </div>
+      <div class="work-body">
+        <div class="work-type">Копирайтинг · Разные ниши</div>
+        <div class="work-title">Продающие тексты по формулам для 10+ ниш</div>
+        <p class="work-desc">Написала продающие тексты для ногтевого сервиса, психолога, шторного бизнеса, семейного юриста, эстетической медицины и других ниш. Применяю AIDA, PAS, FAB, PMPHS, 4U — системно, не интуитивно.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section">
+  <div class="section-label">Инструменты</div>
+  <div class="tools-row">
+    <span class="tool-pill">Claude (Клава)</span>
+    <span class="tool-pill">ChatGPT Pro</span>
+    <span class="tool-pill">Midjourney</span>
+    <span class="tool-pill">Krea AI</span>
+    <span class="tool-pill">Grok</span>
+    <span class="tool-pill">Canva</span>
+    <span class="tool-pill">ВКонтакте</span>
+    <span class="tool-pill">Telegram</span>
+    <span class="tool-pill">GitHub Pages</span>
+    <span class="tool-pill">Excel / Google Sheets</span>
+    <span class="tool-pill">Промпт-формулы</span>
+    <span class="tool-pill">AIDA · PAS · FAB · 4U</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Готовы работать<br>вместе со <em>мной</em>?</h2>
+  <p>Расскажите о вашей задаче — разберём, что нужно вашему бизнесу и как AI может помочь прямо сейчас.</p>
+  <a href="https://t.me/Kseniya_Lisitskay" class="btn-primary">Написать в Telegram</a>
+  <div class="cta-contacts">
+    <a href="tel:+79090930703" class="contact-link">+7 909 093-07-03</a>
+    <a href="file:///C:/cdn-cgi/l/email-protection#e98281848c858c9f88d1daa98e84888085c78a8684" class="contact-link"><span class="__cf_email__" data-cfemail="4c2724212920293a2d747f0c2b212d2520622f2321">[email&nbsp;protected]</span></a>
+    <a href="https://t.me/Kseniya_Lisitskay" class="contact-link">@Kseniya_Lisitskay</a>
+  </div></section></body></html>
